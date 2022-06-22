@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A short, simple, wrong proof to 1/2 of the Collatz Conjecture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:ital@1&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.css" integrity="sha384-D+9gmBxUQogRLqvARvNLmA9hS2x//eK1FhVb9PiU86gmcrBrJAQT8okdJ4LMp2uv" crossorigin="anonymous">
+
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/katex.min.js" integrity="sha384-483A6DwYfKeDa0Q52fJmxFXkcPCFfnXMoXblOkJ4JcA8zATN6Tm78UNL72AKk+0O" crossorigin="anonymous"></script>
+
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0-rc.1/dist/contrib/auto-render.min.js" integrity="sha384-yACMu8JWxKzSp/C1YV86pzGiQ/l1YUfE8oPuahJQxzehAjEt2GiQuy/BIvl9KyeF" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+</head>
+<body>
+        <h1>A short, simple, wrong proof to 1/2 of Collatz Conjecture</h1>
+        <h2>Chapter 1: The Collatz Conjecture</h2>
+        <p style="font-size:18px;"><b>By David Pham</b></p>
+        <p>
+            The Collatz conjecture is one of the most famous unsolved problems in mathematics.
+            The conjecture asks whether repeating two simple arithmetic operations will eventually transform every positive integer into 1.
+            It concerns sequences of integers in which each term is obtained from the previous term as follows:
+            If the previous term is even, the next term is one half of the previous term, else, the next term is 3 times the previous term plus 1. For example:<br><br>
+            3 -> 10 -> 5 -> 16 -> 8 -> 4 -> 2 -> 1<br><br>
+            The conjecture is that these sequences always reach 1, no matter which positive integer is chosen to start the sequence. <a href="https://en.wikipedia.org/wiki/Collatz_conjecture" target="_blank"><sup>[1]</sup></a><br><br>
+            <img src="SoME1.png" alt="Collatz Conjecture" class="image"><br>
+        </p>
+        <h5>Source: <a href="https://www.popularmechanics.com/science/math/a29033918/math-riddle-collatz-conjecture/" target="_blank">popularmechanics.com/science/math/a29033918/math-riddle-collatz-conjecture/</a></h5>
+        <p>
+            There are 2 types of counterexamples to disprove the conjecture: 
+            There may have a number that grows to infinite or a sequence of numbers that loops itself.<br><br>
+            <img src="SoME2.png" alt="Loop" class="image">
+        </p>
+        <h5>Source: <a href="https://www.youtube.com/watch?v=094y1Z2wpJg" target="_blank">youtu.be/094y1Z2wpJg</a></h5>
+        <p>
+            Right now, we will try to prove that there's no number that grows to infinite<br><br>
+            Disclaimer: I know that I'm wrong all over the place, and there are some promising proofs on the Internet, but this is my attempt to solve 1/2 of the conjecture
+        </p>   
+            
+        <h2>Chapter 2: Some Modifications</h2>
+        <p>
+            Every time you multiply an odd number by 3 then add 1, it will always become an even number
+            that means the next step is to divide by 2. We could simplify the odd rule by divide 2 immediately:<br>
+        </p>
+        <p class="math">
+            \( \frac{3x+1}{2}=1.5x+0.5 \)
+        </p>
+        <p>
+            You could think that "+0.5" is rounding up the number:<br>
+        </p>
+        <p class="math">
+            \( 1.5x+0.5=\left \lceil{1.5x}\right \rceil\)
+        </p>
+        <p>This will be our new rule for the odd numbers.</p>
+        <img src="SoME4.png" alt="Joke" class="image3">
+        <h2>Chapter 3: Unnecessory Evens</h2>
+        <p>
+            Imagine, if we apply the new rule to an odd number, 
+            then, because the next number is even, we take it and divide by 2 n times (n>1) until the new number is odd,
+            next, we apply the new rule to that new number. We could simplify what we just said with an equation:
+        </p>
+        <p class="math">
+            \(\left \lceil{1.5*\frac{\left \lceil{1.5x}\right \rceil}{2^n}}\right \rceil \approx \frac{2.25x}{2^n}=\frac{1.125x}{2^{n-1}} (n>0)\)
+        </p>
+        <p>
+            If we plot that equation with the new rule in a graph (I will use Desmos), you could see that the equation rises slower than our new rule.
+        </p>
+        <img src="SoME3.png" alt="graph" class="image2">
+        <p>
+            Hence, we could see that even numbers can effect our sequence to fall down to 1. 
+            That means the sequence mustn't have even numbers
+        </p>
+        <h2>Chapter 4: The proof</h2>
+        <p>
+            We know that the first number must be an odd number.<br>
+            If the first number has a remainder of 1 when divide by 4, then the second number is even because \(\left \lceil{1.5(4x+1)}\right \rceil = \left \lceil{6x+1.5}\right \rceil = 6x+2 = 2(3x+1)\).
+            And the first number is odd, so it must has a remainder of 3 when divide by 4.<br>
+            If the first number has a remainder of 3 when divide by 8, then the third number is even because \(\left \lceil{1.5 \left \lceil{1.5(8x+3)}\right \rceil}\right \rceil = \left \lceil{1.5(12x+5)}\right \rceil = \left \lceil{18x+7.5}\right \rceil = 18x+8 = 2(9x+4)\).<br>
+            And the first number has a remainder of 3 when divide by 4, so it must has a remainder of 7 when divide by 8.<br>
+            You could see a pattern that the first number must has a remainder of \(2^n-1\) when divide by \(2^n\) to make the first n+1 numbers to be odd. 
+            Because the sequence grows to infinity, the sequence must take \(\infty\) steps to reach it, thus the first number must has a remainder of \(2^\infty-1\) when divide by \(2^\infty\).
+            That means the first number in the sequence is:  
+        </p>
+        <p class="math">
+            \(x_{0} = 2^\infty *a + 2^\infty - 1 (a = \frac{x_{0}}{2^\infty})\)
+        </p>
+        <p>
+            Because \(2^\infty = \lim_{x\to\infty^+} 2^x = \infty\):
+        </p>
+        <p class="math">
+            \(x_{0} = \infty * a + \infty - 1 (a = \frac{x_{0}}{\infty})\)
+        </p>
+        <p>
+            \(x/\infty=0\) => a = 0:
+        </p>
+        <p class="math">
+            \(x_{0} = \infty * 0 + \infty - 1 = \infty - 1 = \infty\)
+        </p>
+        <p>
+            If the first number is infinity, whatever we do, we just get a sequence of infinities, but we want a sequence that grows to infinity,
+            not a sequence of infinities, so that means there are no number that grows to infinity.
+        </p>
+        <img src="Congratulations-Memes-FEATURED.jpg" alt="Congrats" class="image3">
+        <p>
+            If you want to ask me something, you can contact me through <a href="mailto:dp548551@gmail.com" target="_blank">email</a> and I try to answer my best at <a href="https://twitter.com/PhamDp5" target="_blank">Twiiter</a>.
+        </p>
+        <h2>Thanks for reading!</h2>
+</body>
+</html>
